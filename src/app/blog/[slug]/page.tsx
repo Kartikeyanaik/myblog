@@ -1,14 +1,27 @@
-// src/app/blog/[slug]/page.tsx
 import { getPostData } from '../../../../lib/posts';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
-export default async function BlogPostPage({
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
+  const post = await getPostData(`${params.slug}.mdx`);
+
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: `Read more about "${post.title}" on my blog.`,
+  };
+}
+
+
+export default async function Page({
   params,
 }: {
   params: { slug: string };
 }) {
   const post = await getPostData(`${params.slug}.mdx`);
-
   if (!post) return notFound();
 
   return (
