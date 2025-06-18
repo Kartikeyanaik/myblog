@@ -2,20 +2,18 @@
 import { getPostData } from '../../../../lib/posts';
 import { notFound } from 'next/navigation';
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
-
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const post = await getPostData(`${params.slug}.mdx`);
 
   if (!post) return notFound();
 
   return (
-    <main className="p-6 ">
-      <h1 className="text-3xl  mb-2">{post.title}</h1>
+    <main className="p-6">
+      <h1 className="text-3xl mb-2">{post.title}</h1>
       <p className="text-sm text-gray-400 mb-6">{post.date}</p>
       <article
         className="prose prose-invert"
