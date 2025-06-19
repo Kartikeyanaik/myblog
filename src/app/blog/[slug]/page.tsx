@@ -1,13 +1,12 @@
 // src/app/blog/[slug]/page.tsx
-
 import { getPostData } from '../../../../lib/posts';
 import { notFound } from 'next/navigation';
 
-type PageProps = {
-  params: { slug: string };
-};
-
-export default async function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Awaited<{ slug: string }>;
+}) {
   const post = await getPostData(`${params.slug}.mdx`);
 
   if (!post) return notFound();
