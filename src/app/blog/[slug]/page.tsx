@@ -1,3 +1,5 @@
+// src/app/blog/[slug]/page.tsx
+
 import { getPostData } from '../../../../lib/posts';
 import { notFound } from 'next/navigation';
 
