@@ -1,3 +1,4 @@
+// src/app/blog/[slug]/page.tsx
 import { getPostData } from '../../../../lib/posts';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -11,7 +12,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getPostData(`${params.slug}.mdx`);
   return {
-    title: post?.title ?? 'Blog Post',
+    title: post?.title || 'Blog Post',
   };
 }
 
